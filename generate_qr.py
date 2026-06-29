@@ -3,7 +3,9 @@ from PIL import Image, ImageDraw, ImageFont
 import os
 
 PAGES_BASE = "https://santhosh-m31.github.io/drone-qr-data/"
-RAW_BASE = "https://raw.githubusercontent.com/Santhosh-M31/drone-qr-data/master/"
+RAW_BASE   = "https://raw.githubusercontent.com/Santhosh-M31/drone-qr-data/master/"
+LOGO_PATH  = "logo.jpg"
+LOGO_URL   = "https://santhosh-m31.github.io/drone-qr-data/logo.jpg"
 
 files = [
     "Product_Delivery_01.csv",
@@ -26,19 +28,21 @@ HTML_TEMPLATE = """\
   <style>
     *{{box-sizing:border-box;margin:0;padding:0}}
     body{{font-family:Arial,sans-serif;background:#f0f4f8;display:flex;align-items:center;justify-content:center;min-height:100vh}}
-    .card{{background:#fff;border-radius:16px;padding:40px 32px;text-align:center;box-shadow:0 6px 24px rgba(0,0,0,.12);max-width:420px;width:92%}}
-    h1{{font-size:1.3em;color:#1a1a2e;margin-bottom:10px}}
+    .card{{background:#fff;border-radius:16px;padding:36px 32px;text-align:center;box-shadow:0 6px 24px rgba(0,0,0,.12);max-width:440px;width:92%}}
+    .logo{{max-width:240px;width:80%;margin-bottom:20px}}
+    .divider{{border:none;border-top:1px solid #e0e0e0;margin:0 0 20px}}
+    h1{{font-size:1.25em;color:#1a1a2e;margin-bottom:10px}}
     p{{color:#555;font-size:.95em;margin-bottom:24px}}
-    .btn{{display:inline-block;background:#1976d2;color:#fff;padding:14px 32px;border-radius:10px;text-decoration:none;font-size:1.05em;font-weight:bold;cursor:pointer;transition:background .2s}}
-    .btn:hover{{background:#1565c0}}
+    .btn{{display:inline-block;background:#b71c1c;color:#fff;padding:14px 32px;border-radius:10px;text-decoration:none;font-size:1.05em;font-weight:bold;cursor:pointer;transition:background .2s}}
+    .btn:hover{{background:#7f0000}}
     .status{{margin-top:18px;color:#888;font-size:.88em}}
-    .icon{{font-size:2.5em;margin-bottom:16px}}
   </style>
 </head>
 <body>
   <div class="card">
-    <div class="icon">📊</div>
-    <h1>{LABEL}</h1>
+    <img class="logo" src="{LOGO_URL}" alt="Tec Solution Pro">
+    <hr class="divider">
+    <h1>📊 {LABEL}</h1>
     <p>Your CSV file will download automatically.<br>Tap the button if it doesn't start.</p>
     <a id="dlbtn" class="btn" href="{RAW_URL}" download="{FILENAME}">&#8675; Download CSV</a>
     <p class="status" id="status">Starting download...</p>
@@ -72,19 +76,24 @@ HTML_TEMPLATE = """\
 os.makedirs("download", exist_ok=True)
 os.makedirs("qrcodes", exist_ok=True)
 
+# Load and prepare logo for QR images
+logo = Image.open(LOGO_PATH).convert("RGB")
+
 for filename in files:
     label = filename.replace(".csv", "").replace("_", " ")
-    raw_url = RAW_BASE + filename
+    raw_url  = RAW_BASE + filename
     page_url = PAGES_BASE + "download/" + filename.replace(".csv", ".html")
 
-    # Write HTML download page
-    html = HTML_TEMPLATE.format(LABEL=label, RAW_URL=raw_url, FILENAME=filename)
+    # --- HTML download page ---
+    html = HTML_TEMPLATE.format(
+        LABEL=label, RAW_URL=raw_url, FILENAME=filename, LOGO_URL=LOGO_URL
+    )
     html_path = os.path.join("download", filename.replace(".csv", ".html"))
     with open(html_path, "w", encoding="utf-8") as f:
         f.write(html)
-    print(f"HTML page: {html_path}")
+    print(f"HTML: {html_path}")
 
-    # Generate QR code pointing to GitHub Pages URL
+    # --- QR code image ---
     qr = qrcode.QRCode(
         version=1,
         error_correction=qrcode.constants.ERROR_CORRECT_H,
@@ -96,9 +105,22 @@ for filename in files:
 
     qr_img = qr.make_image(fill_color="black", back_color="white").convert("RGB")
     qr_w, qr_h = qr_img.size
+
+    # Resize logo to QR width with padding, keep aspect ratio
+    logo_padding = 20
+    logo_target_w = qr_w - logo_padding * 2
+    logo_ratio = logo_target_w / logo.width
+    logo_h = int(logo.height * logo_ratio)
+    logo_resized = logo.resize((logo_target_w, logo_h), Image.LANCZOS)
+
     label_height = 55
-    final_img = Image.new("RGB", (qr_w, qr_h + label_height), "white")
-    final_img.paste(qr_img, (0, 0))
+    total_h = logo_h + 12 + qr_h + label_height
+
+    final_img = Image.new("RGB", (qr_w, total_h), "white")
+    # Paste logo centered at top
+    final_img.paste(logo_resized, (logo_padding, 8))
+    # Paste QR below logo
+    final_img.paste(qr_img, (0, logo_h + 12))
 
     draw = ImageDraw.Draw(final_img)
     try:
@@ -109,10 +131,10 @@ for filename in files:
     bbox = draw.textbbox((0, 0), label, font=font)
     text_w = bbox[2] - bbox[0]
     x = (qr_w - text_w) // 2
-    draw.text((x, qr_h + 14), label, fill="black", font=font)
+    draw.text((x, logo_h + 12 + qr_h + 14), label, fill="black", font=font)
 
     out_path = os.path.join("qrcodes", filename.replace(".csv", "_QR.png"))
     final_img.save(out_path)
-    print(f"QR saved:  {out_path}  ->  {page_url}\n")
+    print(f"QR:   {out_path}  ->  {page_url}\n")
 
-print("Done! All 8 HTML pages and QR codes generated.")
+print("Done! All 8 HTML pages and QR codes regenerated with logo.")

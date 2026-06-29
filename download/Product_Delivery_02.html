@@ -7,19 +7,21 @@
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
     body{font-family:Arial,sans-serif;background:#f0f4f8;display:flex;align-items:center;justify-content:center;min-height:100vh}
-    .card{background:#fff;border-radius:16px;padding:40px 32px;text-align:center;box-shadow:0 6px 24px rgba(0,0,0,.12);max-width:420px;width:92%}
-    h1{font-size:1.3em;color:#1a1a2e;margin-bottom:10px}
+    .card{background:#fff;border-radius:16px;padding:36px 32px;text-align:center;box-shadow:0 6px 24px rgba(0,0,0,.12);max-width:440px;width:92%}
+    .logo{max-width:240px;width:80%;margin-bottom:20px}
+    .divider{border:none;border-top:1px solid #e0e0e0;margin:0 0 20px}
+    h1{font-size:1.25em;color:#1a1a2e;margin-bottom:10px}
     p{color:#555;font-size:.95em;margin-bottom:24px}
-    .btn{display:inline-block;background:#1976d2;color:#fff;padding:14px 32px;border-radius:10px;text-decoration:none;font-size:1.05em;font-weight:bold;cursor:pointer;transition:background .2s}
-    .btn:hover{background:#1565c0}
+    .btn{display:inline-block;background:#b71c1c;color:#fff;padding:14px 32px;border-radius:10px;text-decoration:none;font-size:1.05em;font-weight:bold;cursor:pointer;transition:background .2s}
+    .btn:hover{background:#7f0000}
     .status{margin-top:18px;color:#888;font-size:.88em}
-    .icon{font-size:2.5em;margin-bottom:16px}
   </style>
 </head>
 <body>
   <div class="card">
-    <div class="icon">📊</div>
-    <h1>Product Delivery 02</h1>
+    <img class="logo" src="https://santhosh-m31.github.io/drone-qr-data/logo.jpg" alt="Tec Solution Pro">
+    <hr class="divider">
+    <h1>📊 Product Delivery 02</h1>
     <p>Your CSV file will download automatically.<br>Tap the button if it doesn't start.</p>
     <a id="dlbtn" class="btn" href="https://raw.githubusercontent.com/Santhosh-M31/drone-qr-data/master/Product_Delivery_02.csv" download="Product_Delivery_02.csv">&#8675; Download CSV</a>
     <p class="status" id="status">Starting download...</p>
