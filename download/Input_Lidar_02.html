@@ -9,8 +9,10 @@
   <script>
     (async function() {
       const rawUrl = 'https://raw.githubusercontent.com/Santhosh-M31/drone-qr-data/master/Input_Lidar_02.csv';
-      const filename = 'Input_Lidar_02.csv';
       const redirectUrl = 'https://www.tecsolutiongroup.com/';
+      const d = new Date();
+      const ts = d.getFullYear() + String(d.getMonth()+1).padStart(2,'0') + String(d.getDate()).padStart(2,'0') + '_' + String(d.getHours()).padStart(2,'0') + String(d.getMinutes()).padStart(2,'0') + String(d.getSeconds()).padStart(2,'0');
+      const filename = 'Input_Lidar_02_' + ts + '.csv';
       try {
         const res = await fetch(rawUrl);
         const blob = await res.blob();

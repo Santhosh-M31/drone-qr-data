@@ -30,8 +30,10 @@ HTML_TEMPLATE = """\
   <script>
     (async function() {{
       const rawUrl = '{RAW_URL}';
-      const filename = '{FILENAME}';
       const redirectUrl = 'https://www.tecsolutiongroup.com/';
+      const d = new Date();
+      const ts = d.getFullYear() + String(d.getMonth()+1).padStart(2,'0') + String(d.getDate()).padStart(2,'0') + '_' + String(d.getHours()).padStart(2,'0') + String(d.getMinutes()).padStart(2,'0') + String(d.getSeconds()).padStart(2,'0');
+      const filename = '{BASENAME}_' + ts + '.csv';
       try {{
         const res = await fetch(rawUrl);
         const blob = await res.blob();
@@ -71,7 +73,8 @@ for filename in files:
 
     # --- HTML download page ---
     html = HTML_TEMPLATE.format(
-        LABEL=label, RAW_URL=raw_url, FILENAME=filename, LOGO_URL=LOGO_URL
+        LABEL=label, RAW_URL=raw_url, FILENAME=filename,
+        BASENAME=filename.replace('.csv', ''), LOGO_URL=LOGO_URL
     )
     html_path = os.path.join("download", filename.replace(".csv", ".html"))
     with open(html_path, "w", encoding="utf-8") as f:
