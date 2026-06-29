@@ -1,1 +1,27 @@
-Grid ID,Region,Site,Grid,Area (km²),Status,Survey %,Actual Area (km²),Deliver Data,DEM,DSM,Orthophoto,PointCloud,MSAVI,NDVI,Multispectral,HDD,Delivery Date,Remarks
+Grid ID,DEM,DSM,Orthophoto,Multispectral,NDVI,MSAVI
+RUH-Site01-Grid03,Y,Y,Y,Y,Y,Y
+RUH-Site02-Grid18,Y,Y,Y,Y,Y,Y
+RUH-Site02-Grid25,Y,Y,Y,Y,Y,Y
+RUH-Site02-Grid26,Y,Y,Y,Y,Y,Y
+RUH-Site02-Grid27,Y,Y,Y,Y,Y,Y
+RUH-Site02-Grid28,Y,Y,Y,Y,Y,Y
+RUH-Site02-Grid29,Y,Y,Y,Y,Y,Y
+RUH-Site03-Grid01,Y,Y,Y,Y,Y,Y
+RUH-Site03-Grid02,Y,Y,Y,Y,Y,Y
+RUH-Site03-Grid03,Y,Y,Y,Y,Y,Y
+RUH-Site03-Grid04,Y,Y,Y,Y,Y,Y
+RUH-Site03-Grid05,Y,Y,Y,Y,Y,Y
+RUH-Site03-Grid06,Y,Y,Y,Y,Y,Y
+RUH-Site03-Grid07,Y,Y,Y,Y,Y,Y
+RUH-Site03-Grid08,Y,Y,Y,Y,Y,Y
+RUH-Site03-Grid09,Y,Y,Y,Y,Y,Y
+RUH-Site03-Grid10,Y,Y,Y,Y,Y,Y
+RUH-Site03-Grid11,Y,Y,Y,Y,Y,Y
+RUH-Site03-Grid12,Y,Y,Y,Y,Y,Y
+RUH-Site03-Grid13,Y,Y,Y,Y,Y,Y
+RUH-Site04-Grid198,Y,Y,Y,Y,Y,Y
+RUH-Site04-Grid236,Y,Y,Y,Y,Y,Y
+RUH-Site04-Grid250,Y,Y,Y,Y,Y,Y
+RUH-Site04-Grid251,Y,Y,Y,Y,Y,Y
+RUH-Site04-Grid254,Y,Y,Y,Y,Y,Y
+RUH-Site04-Grid43,Y,Y,Y,Y,Y,Y
