@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Download Product Delivery 04</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Arial,sans-serif;background:#f0f4f8;display:flex;align-items:center;justify-content:center;min-height:100vh}
+    .card{background:#fff;border-radius:16px;padding:40px 32px;text-align:center;box-shadow:0 6px 24px rgba(0,0,0,.12);max-width:420px;width:92%}
+    h1{font-size:1.3em;color:#1a1a2e;margin-bottom:10px}
+    p{color:#555;font-size:.95em;margin-bottom:24px}
+    .btn{display:inline-block;background:#1976d2;color:#fff;padding:14px 32px;border-radius:10px;text-decoration:none;font-size:1.05em;font-weight:bold;cursor:pointer;transition:background .2s}
+    .btn:hover{background:#1565c0}
+    .status{margin-top:18px;color:#888;font-size:.88em}
+    .icon{font-size:2.5em;margin-bottom:16px}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="icon">📊</div>
+    <h1>Product Delivery 04</h1>
+    <p>Your CSV file will download automatically.<br>Tap the button if it doesn't start.</p>
+    <a id="dlbtn" class="btn" href="https://raw.githubusercontent.com/Santhosh-M31/drone-qr-data/master/Product_Delivery_04.csv" download="Product_Delivery_04.csv">&#8675; Download CSV</a>
+    <p class="status" id="status">Starting download...</p>
+  </div>
+  <script>
+    (async function() {
+      const rawUrl = 'https://raw.githubusercontent.com/Santhosh-M31/drone-qr-data/master/Product_Delivery_04.csv';
+      const filename = 'Product_Delivery_04.csv';
+      const status = document.getElementById('status');
+      try {
+        const res = await fetch(rawUrl);
+        const blob = await res.blob();
+        const blobUrl = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = blobUrl;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        setTimeout(() => URL.revokeObjectURL(blobUrl), 2000);
+        status.textContent = 'Download started!';
+      } catch (e) {
+        status.textContent = 'Tap the button above to download.';
+      }
+    })();
+  </script>
+</body>
+</html>
