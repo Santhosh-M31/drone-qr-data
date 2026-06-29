@@ -12,8 +12,8 @@ files = [
     "Product_Delivery_02.csv",
     "Product_Delivery_03.csv",
     "Product_Delivery_04.csv",
-    "Input_L3_01.csv",
-    "Input_L3_02.csv",
+    "Input_Lidar_01.csv",
+    "Input_Lidar_02.csv",
     "Input_Multispectral_01.csv",
     "Input_Multispectral_02.csv",
 ]
