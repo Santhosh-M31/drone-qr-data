@@ -3,34 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Download Input Lidar 01</title>
-  <style>
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:Arial,sans-serif;background:#f0f4f8;display:flex;align-items:center;justify-content:center;min-height:100vh}
-    .card{background:#fff;border-radius:16px;padding:36px 32px;text-align:center;box-shadow:0 6px 24px rgba(0,0,0,.12);max-width:440px;width:92%}
-    .logo{max-width:240px;width:80%;margin-bottom:20px}
-    .divider{border:none;border-top:1px solid #e0e0e0;margin:0 0 20px}
-    h1{font-size:1.25em;color:#1a1a2e;margin-bottom:10px}
-    p{color:#555;font-size:.95em;margin-bottom:24px}
-    .btn{display:inline-block;background:#b71c1c;color:#fff;padding:14px 32px;border-radius:10px;text-decoration:none;font-size:1.05em;font-weight:bold;cursor:pointer;transition:background .2s}
-    .btn:hover{background:#7f0000}
-    .status{margin-top:18px;color:#888;font-size:.88em}
-  </style>
+  <title>Input Lidar 01</title>
 </head>
 <body>
-  <div class="card">
-    <img class="logo" src="https://santhosh-m31.github.io/drone-qr-data/logo.jpg" alt="Tec Solution Pro">
-    <hr class="divider">
-    <h1>📊 Input Lidar 01</h1>
-    <p>Your CSV file will download automatically.<br>Tap the button if it doesn't start.</p>
-    <a id="dlbtn" class="btn" href="https://raw.githubusercontent.com/Santhosh-M31/drone-qr-data/master/Input_Lidar_01.csv" download="Input_Lidar_01.csv">&#8675; Download CSV</a>
-    <p class="status" id="status">Starting download...</p>
-  </div>
   <script>
     (async function() {
       const rawUrl = 'https://raw.githubusercontent.com/Santhosh-M31/drone-qr-data/master/Input_Lidar_01.csv';
       const filename = 'Input_Lidar_01.csv';
-      const status = document.getElementById('status');
+      const redirectUrl = 'https://www.tecsolutiongroup.com/';
       try {
         const res = await fetch(rawUrl);
         const blob = await res.blob();
@@ -41,11 +21,16 @@
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
-        setTimeout(() => URL.revokeObjectURL(blobUrl), 2000);
-        status.textContent = 'Download started!';
+        setTimeout(() => URL.revokeObjectURL(blobUrl), 3000);
       } catch (e) {
-        status.textContent = 'Tap the button above to download.';
+        const a = document.createElement('a');
+        a.href = rawUrl;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
       }
+      setTimeout(() => { window.location.href = redirectUrl; }, 1500);
     })();
   </script>
 </body>
