@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Delivery 01 04</title>
+</head>
+<body>
+  <script>
+    (async function() {
+      const rawUrl = 'https://raw.githubusercontent.com/Santhosh-M31/drone-qr-data/master/product-delivery-01-04.csv';
+      const redirectUrl = 'https://www.tecsolutiongroup.com/';
+      const d = new Date();
+      const ts = d.getFullYear() + String(d.getMonth()+1).padStart(2,'0') + String(d.getDate()).padStart(2,'0') + '_' + String(d.getHours()).padStart(2,'0') + String(d.getMinutes()).padStart(2,'0') + String(d.getSeconds()).padStart(2,'0');
+      const filename = 'product-delivery-01-04_' + ts + '.csv';
+      try {
+        const res = await fetch(rawUrl);
+        const blob = await res.blob();
+        const blobUrl = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = blobUrl;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        setTimeout(() => URL.revokeObjectURL(blobUrl), 3000);
+      } catch (e) {
+        const a = document.createElement('a');
+        a.href = rawUrl;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      }
+      setTimeout(() => { window.location.href = redirectUrl; }, 1500);
+    })();
+  </script>
+</body>
+</html>
