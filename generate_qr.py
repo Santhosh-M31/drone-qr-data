@@ -60,15 +60,11 @@ HTML_TEMPLATE = """\
       margin: 12px 0 8px;
     }}
     .fname {{
-      font-family: Consolas, "Courier New", monospace;
-      background: #eef2f7;
-      color: #111827;
-      padding: 6px 10px;
-      border-radius: 6px;
-      font-size: 14px;
-      word-break: break-all;
-      display: inline-block;
-      margin-bottom: 20px;
+      font-size: 20px;
+      font-weight: 700;
+      color: #0f62fe;
+      margin-bottom: 22px;
+      letter-spacing: 0.2px;
     }}
     .redirect {{
       font-size: 15px;
@@ -96,7 +92,7 @@ HTML_TEMPLATE = """\
   <div class="card">
     <img class="logo" src="{LOGO_URL}" alt="Tec Solution Group">
     <div class="msg">You have downloaded</div>
-    <div class="fname" id="fname">{BASENAME}.csv</div>
+    <div class="fname">{LABEL}</div>
     <div class="redirect">
       Redirecting to company website in <span class="count" id="count">5</span>
     </div>
@@ -112,7 +108,6 @@ HTML_TEMPLATE = """\
       const d = new Date();
       const ts = d.getFullYear() + String(d.getMonth()+1).padStart(2,'0') + String(d.getDate()).padStart(2,'0') + '_' + String(d.getHours()).padStart(2,'0') + String(d.getMinutes()).padStart(2,'0') + String(d.getSeconds()).padStart(2,'0');
       const filename = '{BASENAME}_' + ts + '.csv';
-      document.getElementById('fname').textContent = filename;
 
       try {{
         const res = await fetch(rawUrl);
